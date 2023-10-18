@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### database settings ###
+!**/src/main/resources/application.yml

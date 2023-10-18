@@ -28,7 +28,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER) // add the user you want the user to have when sign n
+                .role(Role.ADMIN) // add the user you want the user to have when sign n
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);

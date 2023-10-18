@@ -27,14 +27,4 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @GetMapping("admin")
-    public String admin(){
-        return "Admin";
-    }
-
-    @GetMapping("user")
-    public String user(){
-        return "User";
-    }
-
 }

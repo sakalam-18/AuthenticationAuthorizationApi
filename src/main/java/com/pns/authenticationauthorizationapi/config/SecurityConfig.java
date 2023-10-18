@@ -34,9 +34,9 @@ public class SecurityConfig {
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
-                                .requestMatchers("/admin")
+                                .requestMatchers("/api/v1/auth/admin")
                                 .hasAnyAuthority(Role.ADMIN.toString())
-                                .requestMatchers("/user")
+                                .requestMatchers("/api/v1/auth/user")
                                 .hasAnyAuthority(Role.USER.toString())
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS)) // because every request should be authenticated

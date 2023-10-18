@@ -21,4 +21,5 @@ public class DemoController {
     public  ResponseEntity<String> user(){
         return ResponseEntity.ok("Hello from user");
     }
+
 }

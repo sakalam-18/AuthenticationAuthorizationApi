@@ -1,4 +1,4 @@
-package com.pns.authenticationauthorizationapi.controller;
+package com.pns.authenticationauthorizationapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

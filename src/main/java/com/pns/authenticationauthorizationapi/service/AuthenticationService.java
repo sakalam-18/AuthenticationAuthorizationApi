@@ -1,18 +1,15 @@
 package com.pns.authenticationauthorizationapi.service;
 
-import com.pns.authenticationauthorizationapi.controller.AuthenticationRequest;
-import com.pns.authenticationauthorizationapi.model.AuthenticationResponse;
-import com.pns.authenticationauthorizationapi.model.RegisterRequest;
-import com.pns.authenticationauthorizationapi.model.Role;
-import com.pns.authenticationauthorizationapi.model.User;
+import com.pns.authenticationauthorizationapi.model.*;
 import com.pns.authenticationauthorizationapi.repository.UserRepository;
-import io.jsonwebtoken.Jwts;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +47,25 @@ public class AuthenticationService {
                 .builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public String changePassword(ChangePasswordRequest changePasswordRequest, Principal connectedUser) {
+        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+        // check if the users type the correct password
+        if(!passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())){
+            return "Wrong password";
+        }
+        // check if the codes match
+        if(!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmationPassword())){
+            return "Passwords not the same";
+        }
+        // old password is the same with the new one
+        if(changePasswordRequest.getOldPassword().equals(changePasswordRequest.getNewPassword())){
+            return "New password can't be the same with old";
+        }
+
+        user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+        userRepository.save(user);
+        return "Password has change";
     }
 }

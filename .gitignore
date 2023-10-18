@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### database settings ###
-application.yml
+/src/main/resources/application.yml

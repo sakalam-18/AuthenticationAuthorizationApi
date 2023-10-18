@@ -1,8 +1,17 @@
 // create your own application.properties file
 
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect // database you want to use
-spring.jpa.hibernate.ddl-auto=create-drop
-spring.datasource.url=jdbc:postgresql://localhost:5432/levart // path of the database
-spring.datasource.username=username // your username in the database
-spring.datasource.password=password // the password of the database
-spring.jpa.properties.hibernate.format_sql=true
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/yourdatabasename
+    username: yourdatabaseusername
+    password: yourdatabasepassword
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

@@ -7,6 +7,7 @@ import com.pns.authenticationauthorizationapi.model.RegisterRequest;
 import com.pns.authenticationauthorizationapi.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,6 +17,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
@@ -34,5 +36,11 @@ public class AuthenticationController {
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, Principal connectedUser){
         return ResponseEntity.ok(authenticationService.changePassword(changePasswordRequest,connectedUser));
     }
+    @GetMapping("/logout")
+    public void logout(){
+        SecurityContextHolder.clearContext();
+    }
+
+
 
 }
